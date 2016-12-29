@@ -1,5 +1,6 @@
 package com.userfront.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -105,6 +106,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User saveUser(User user) {
 		return userDao.save(user);
+	}
+
+	@Override
+	public List<User> findUserList() {
+		return userDao.findAll();
+	}
+
+	@Override
+	public void enableUser(String username) {
+		User user = findByUsername(username);
+		user.setEnabled(true);
+		userDao.save(user);
+	}
+
+	@Override
+	public void disableUser(String username) {
+		User user = findByUsername(username);
+		user.setEnabled(false);
+		userDao.save(user);
 	}
 
 }
